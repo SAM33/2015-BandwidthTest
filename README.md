@@ -7,7 +7,8 @@
   1.make clean<br/>
   2.make<br/>
   <br/>
-  Useage : 1.Prepare two computer in the same local network. (example : 192.168.1.101, 192.168.1.102)<br/>
+  Useage : <br/>
+           1.Prepare two computer in the same local network. (example : 192.168.1.101, 192.168.1.102)<br/>
            2.Chose one to be server , another one to be client (example : 192.168.1.101 --> Server)<br/>
            3.Edit line 35 to be server address "127.0.0.1" --> "192.168.1.101"<br/>
            4.run server program on 192.168.1.101</br>
