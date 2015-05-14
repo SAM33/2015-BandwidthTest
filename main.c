@@ -28,7 +28,7 @@ int main(int argc,char *argv[])
     int socketfd = socket(AF_INET,SOCK_DGRAM,0);
     if(socketfd<0)
         return -1;
-    char data[1024];
+    char data[4096];
     long long total=0;
     struct sockaddr_in serveraddr;
     memset(&serveraddr,0x0,sizeof(serveraddr));
@@ -37,7 +37,7 @@ int main(int argc,char *argv[])
     serveraddr.sin_port = htons( 9999 );
     while(1)
     {
-        int s = sendto(socketfd, data, 1024, 0, (struct sockaddr *)&serveraddr, sizeof(serveraddr));
+        int s = sendto(socketfd, data, sizeof(data), 0, (struct sockaddr *)&serveraddr, sizeof(serveraddr));
     }
 }
 #endif
@@ -56,7 +56,7 @@ int main(int argc,char *argv[])
     int b = bind(socketfd,(struct sockaddr *)&myaddr,sizeof(myaddr));
     if(b<0)
         return -1;
-    char data[1024];
+    char data[4096];
     long long total=0;
     struct sockaddr_in clientaddr;
     socklen_t l = sizeof(clientaddr);
@@ -64,7 +64,7 @@ int main(int argc,char *argv[])
     bool isstart=false;
     while(1)
     {
-        int r = recvfrom(socketfd, data, 1024, 0, (struct sockaddr *)&clientaddr, &l);
+        int r = recvfrom(socketfd, data, sizeof(data), 0, (struct sockaddr *)&clientaddr, &l);
         if(r>0)
         {
             if(isstart)
@@ -74,8 +74,9 @@ int main(int argc,char *argv[])
                 //show bandwidth result per second
                 if(t2-t1>=1)
                 {
-                    double MBspeed = (double)(total/(1024*1024));
-                    printf("%.2lf MBytes/sec (%.0lf Mbps)\n",MBspeed,MBspeed*8);
+                    double MByteSpeed = (double)((double)total/(double)(1024*1024));
+		    double kbitSpeed = (double)((double)(total*8)/(double)(1024));
+                    printf("%.2lf MBytes/sec (%.0lf kbps)\n",MByteSpeed,kbitSpeed);
                     total=0;
                     t1=time(NULL);
                 }
