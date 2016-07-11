@@ -3,7 +3,7 @@
   Author : Sam33<br/>
   Data   : 20150514<br/>
   <br/>
-  How to compile ?<br/>
+  How to compile :<br/>
   1.make clean<br/>
   2.make<br/>
   <br/>
